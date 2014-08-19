@@ -11,11 +11,12 @@
 [Dd]ebugPublic/
 [Rr]elease/
 x64/
-build/
+build/node_modules/
 bld/
 [Bb]in/
 [Oo]bj/
 *.ide/
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
