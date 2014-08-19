@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.21901.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BrickPile", "BrickPile\BrickPile.kproj", "{E3D435E5-53A7-4B2F-82D0-45341898241E}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BrickPile.UI", "BrickPile.UI\BrickPile.UI.kproj", "{F4DA33C5-B51A-47CD-9D5D-53401EBD19EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{500942BD-B26D-4E3D-9A46-4AF6C363C9F9}"
+	ProjectSection(SolutionItems) = preProject
+		build\gulpfile.js = build\gulpfile.js
+		build\package.json = build\package.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "static", "static", "{716780BD-EE84-4A95-B4D0-4B0CE56F09FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{A9F06B10-4572-482B-86B7-923FFFF68237}"
+	ProjectSection(SolutionItems) = preProject
+		..\src\js\scripts.js = ..\src\js\scripts.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scss", "scss", "{BF191D86-10D1-44AA-A1D4-B7073985E2CE}"
+	ProjectSection(SolutionItems) = preProject
+		..\src\scss\style.scss = ..\src\scss\style.scss
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mixins", "mixins", "{0B0DB9CB-E2F0-413A-83AA-28BDE2A856C2}"
+	ProjectSection(SolutionItems) = preProject
+		..\src\scss\mixins\_position.scss = ..\src\scss\mixins\_position.scss
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{3CB43077-E980-4483-B5AA-31CE0282CB19}"
+	ProjectSection(SolutionItems) = preProject
+		..\src\scss\modules\_app.scss = ..\src\scss\modules\_app.scss
+		..\src\scss\modules\_breakpoints.scss = ..\src\scss\modules\_breakpoints.scss
+		..\src\scss\modules\_buttons.scss = ..\src\scss\modules\_buttons.scss
+		..\src\scss\modules\_clearfix.scss = ..\src\scss\modules\_clearfix.scss
+		..\src\scss\modules\_defaults.scss = ..\src\scss\modules\_defaults.scss
+		..\src\scss\modules\_inputs.scss = ..\src\scss\modules\_inputs.scss
+		..\src\scss\modules\_lists.scss = ..\src\scss\modules\_lists.scss
+		..\src\scss\modules\_misc.scss = ..\src\scss\modules\_misc.scss
+		..\src\scss\modules\_print.scss = ..\src\scss\modules\_print.scss
+		..\src\scss\modules\_typography.scss = ..\src\scss\modules\_typography.scss
+		..\src\scss\modules\_vars.scss = ..\src\scss\modules\_vars.scss
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "partials", "partials", "{B60F0130-FAC8-4E7B-99AF-04A2DFA71AE2}"
+	ProjectSection(SolutionItems) = preProject
+		..\src\scss\partials\_footer.scss = ..\src\scss\partials\_footer.scss
+		..\src\scss\partials\_header.scss = ..\src\scss\partials\_header.scss
+		..\src\scss\partials\_main.scss = ..\src\scss\partials\_main.scss
+		..\src\scss\partials\_nav.scss = ..\src\scss\partials\_nav.scss
+		..\src\scss\partials\_sidebar.scss = ..\src\scss\partials\_sidebar.scss
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vendor", "vendor", "{16F623AF-8125-4AAF-B3B7-9758896C1457}"
+	ProjectSection(SolutionItems) = preProject
+		..\src\scss\vendor\_external.scss = ..\src\scss\vendor\_external.scss
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E3D435E5-53A7-4B2F-82D0-45341898241E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3D435E5-53A7-4B2F-82D0-45341898241E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3D435E5-53A7-4B2F-82D0-45341898241E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3D435E5-53A7-4B2F-82D0-45341898241E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4DA33C5-B51A-47CD-9D5D-53401EBD19EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4DA33C5-B51A-47CD-9D5D-53401EBD19EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4DA33C5-B51A-47CD-9D5D-53401EBD19EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4DA33C5-B51A-47CD-9D5D-53401EBD19EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A9F06B10-4572-482B-86B7-923FFFF68237} = {716780BD-EE84-4A95-B4D0-4B0CE56F09FB}
+		{BF191D86-10D1-44AA-A1D4-B7073985E2CE} = {716780BD-EE84-4A95-B4D0-4B0CE56F09FB}
+		{0B0DB9CB-E2F0-413A-83AA-28BDE2A856C2} = {BF191D86-10D1-44AA-A1D4-B7073985E2CE}
+		{3CB43077-E980-4483-B5AA-31CE0282CB19} = {BF191D86-10D1-44AA-A1D4-B7073985E2CE}
+		{B60F0130-FAC8-4E7B-99AF-04A2DFA71AE2} = {BF191D86-10D1-44AA-A1D4-B7073985E2CE}
+		{16F623AF-8125-4AAF-B3B7-9758896C1457} = {BF191D86-10D1-44AA-A1D4-B7073985E2CE}
+	EndGlobalSection
+EndGlobal

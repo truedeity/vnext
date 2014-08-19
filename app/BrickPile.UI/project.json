@@ -1,0 +1,17 @@
+﻿{
+    "dependencies": {
+        "Microsoft.AspNet.Server.IIS": "1.0.0-alpha2",
+        "Microsoft.AspNet.Mvc": "6.0.0-alpha2-*",
+        "Microsoft.AspNet.Mvc.Core": "6.0.0-alpha2-*",
+        "RavenDB.Client": "3.0.3424-Unstable",        
+        "BrickPile": "0.0.1-alpha"
+    },
+    "configurations" : {
+        "net451" : { },
+        "k10" : { }
+    },
+    "commands": {
+        /* Change the port number when you are self hosting this application */
+        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
+    }
+}
