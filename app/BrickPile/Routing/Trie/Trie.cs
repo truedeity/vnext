@@ -139,6 +139,10 @@ namespace BrickPile
             return nodes.TryGetValue(key, out value);
         }
 
+        public bool TryGetNode(string key, out TrieNode node)
+        {
+            return nodes.TryGetValue(key, out node);
+        }
 
         IEnumerator IEnumerable.GetEnumerator()
         {

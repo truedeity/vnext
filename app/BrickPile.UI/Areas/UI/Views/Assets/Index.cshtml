@@ -1,0 +1,71 @@
+﻿@model string[]
+
+
+<div id="pages">
+    <ul>
+        @foreach (string directory in Model)
+        {
+            <li>
+                <a href="@Url.RouteUrl("areaAssetsRoute", new { folder = @directory.TrimStart(new[] {'/'}) })">@directory</a>
+            </li>
+        }
+    </ul>
+</div>
+
+<div style="position:absolute;left:14em;">
+
+    <!-- Load Feather code -->
+    <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+
+    <!-- Instantiate Feather -->
+    <script type='text/javascript'>
+   var featherEditor = new Aviary.Feather({
+       apiKey: 'plem4jxiqv1dvoih',
+       apiVersion: 3,
+       theme: 'dark', // Check out our new 'light' and 'dark' themes!
+       tools: 'all',
+       appendTo: '',
+       onSave: function(imageID, newURL) {
+           var img = document.getElementById(imageID);
+           img.src = newURL;
+       },
+       onError: function(errorObj) {
+           alert(errorObj.message);
+       }
+   });
+   function launchEditor(id, src) {
+       featherEditor.launch({
+           image: id,
+           url: src,
+           forceCropPreset: ['Profile Picture','300x150'],
+           forceCropMessage: 'Crop your profile picture:'
+       });
+      return false;
+   }
+    </script>
+
+    <div id='injection_site'></div>
+
+    <img id='image1' src='http://images.aviary.com/imagesv5/feather_default.jpg' />
+
+    <!-- Add an edit button, passing the HTML id of the image and the public URL of the image -->
+    <p><input type='image' src='http://images.aviary.com/images/edit-photo.png' value='Edit photo' onclick="return launchEditor('image1', 'http://images.aviary.com/imagesv5/feather_default.jpg');" /></p>
+
+    @*<ul>
+        @foreach (var file in ViewBag.Files)
+        {
+            <li>
+                <img src="http://localhost:8080/fs/brickpile/files/@(file.Name)" alt="" width="150" height="150" title="" />
+            </li>
+        }
+    </ul>*@
+</div>
+
+@*<ul>
+    @foreach(Raven.Abstractions.FileSystem.FileHeader file in Model)
+    {
+        <li>
+            <img src="http://localhost:8080/fs/brickpile/files/@(file.Name)" alt="" width="150" height="150" title="" />
+        </li>
+    }
+</ul>*@

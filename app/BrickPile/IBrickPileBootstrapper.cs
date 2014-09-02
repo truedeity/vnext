@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Raven.Client;
+using System;
 
 namespace BrickPile
 {

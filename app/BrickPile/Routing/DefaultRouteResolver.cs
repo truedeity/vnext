@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Routing;
+using System;
 
 namespace BrickPile
 {
@@ -8,9 +9,11 @@ namespace BrickPile
     public class DefaultRouteResolver : IRouteResolver
     {
         private readonly IRouteResolverTrie routeResolverTrie;
+        private readonly RouteContext context;
 
-        public DefaultRouteResolver(IRouteResolverTrie routeResolverTrie)
+        public DefaultRouteResolver(RouteContext context, IRouteResolverTrie routeResolverTrie)
 	    {
+            this.context = context;
             this.routeResolverTrie = routeResolverTrie;
 	    }
 

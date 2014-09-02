@@ -9,32 +9,45 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link href="~/Areas/UI/static/css/feather.css" rel="stylesheet">
     <link href="~/Areas/UI/static/css/style.min.css" rel="stylesheet">
 </head>
 <body>
-    <header class="header" role="banner">
-        <div class="logo">
-            <a href="/">
-                <img src="~/Areas/UI/static/img/logo.png" alt="Logo">
-            </a>
-        </div>
-        <nav class="nav" role="navigation">
-            <ul>
-                <li>
-                    <a href="/"></a>
-                </li>
-            </ul>
-        </nav>
-    </header>
 
-    <main class="main" role="main">
-        @RenderBody()
-    </main>
+    <nav id="menu" role="navigation">
+        <button class="menu-link"><span class="icon-menu"></span></button>        
+        <ul>            
+            <li><a href="@Url.Action("index", "dashboard")"><span class="icon-grid"></span>Dashboard</a></li>
+            <li><a href="@Url.Action("index", "pages")"><span class="icon-paper-stack"></span>Pages</a></li>
+            <li><a href="@Url.Action("index", "assets")"><span class="icon-image"></span>Assets</a></li>
+            <li><a href="#"><span class="icon-head"></span>Users</a></li>
+            <li><a href="#"><span class="icon-cog"></span>Settings</a></li>
+        </ul>
+    </nav>
 
-    <aside class="sidebar" role="complementary"></aside>
+    <div class="container">
 
-    <footer class="footer" role="contentinfo"></footer>
+        <header class="header" role="banner">
+            <nav class="nav" role="navigation">
+                <ul>
+                    <li>
+                        <a href="/"></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
+        <main class="main" role="main" style="margin-top:3em;">
+            @RenderBody()            
+        </main>
+
+        <aside class="sidebar" role="complementary"></aside>
+
+        <footer class="footer" role="contentinfo">
+            @await Component.InvokeAsync("Tags")
+        </footer>
+
+    </div>
     <script src="~/Areas/UI/static/components/jquery/jquery.min.js"></script>
     <script src="~/Areas/UI/static/js/scripts.min.js"></script>
 

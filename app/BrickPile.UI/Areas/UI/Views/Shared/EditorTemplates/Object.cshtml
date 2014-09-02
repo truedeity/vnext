@@ -1,0 +1,19 @@
+﻿
+@foreach (var prop in ViewData.ModelMetadata.Properties.Where(pm => pm.ShowForEdit && !ViewData.TemplateInfo.Visited(pm)))
+{
+    <div>
+        <div class="editor-label">
+            @if (prop.IsRequired)
+            {
+                @Html.Label(prop.PropertyName)
+            }
+            else
+            {
+                @Html.Label(prop.PropertyName)
+            }
+        </div>
+        <div class="editor-field">
+            @Html.Editor(prop.PropertyName)
+        </div>
+    </div>
+}

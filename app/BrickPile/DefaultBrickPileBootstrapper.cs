@@ -1,7 +1,6 @@
 ﻿using System;
 using Raven.Client;
 using Raven.Client.Document;
-using Microsoft.Framework.ConfigurationModel;
 
 namespace BrickPile
 {

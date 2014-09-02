@@ -1,0 +1,27 @@
+﻿{
+    "dependencies": {
+
+    },
+
+    "configurations" : {
+        "net45": {
+            "dependencies":  {
+                "Microsoft.AspNet.Mvc": "6.0.0-alpha2-*",
+                "Microsoft.AspNet.Mvc.Core": "6.0.0-alpha2-*",
+                "BrickPile": "0.0.1-alpha",
+                "RavenDB.Client": "3.0.3424-Unstable",
+                "FakeItEasy": "1.23.0",
+                "xunit": "1.9.2"
+            }
+        },
+        "net451" : { 
+            "dependencies": {
+            }
+        },
+        "k10" : { 
+            "dependencies": {
+                "System.Runtime": "4.0.20.0"
+            }
+        }
+    }
+}
