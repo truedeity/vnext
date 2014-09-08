@@ -1,0 +1,10 @@
+﻿@model IList<BrickPile.Collection>
+<h2>COLLECTIONS</h2>
+<ul>
+    @foreach (BrickPile.Collection collection in Model)
+    {
+        <li>
+            <a href="@Url.RouteUrl("areaAssetsCollectionsRoute", new { action = "collections", collection = @collection.Id.Replace("collections/","")})">@collection.Name</a>
+        </li>
+    }
+</ul>

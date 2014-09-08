@@ -8,18 +8,19 @@ namespace BrickPile
     /// <summary>
     /// Summary description for DefaultRoute
     /// </summary>
-    public class DefaultRoute : IRouter
+    public class DefaultRouter : IRouter
     {
         public const string ControllerKey = "controller";
         public const string ActionKey = "action";
         public const string CurrentPageKey = "currentPage";
         public const string CurrentModelKey = "currentModel";
         public const string CurrentNodeKey = "currentNode";
+        public const string DefaultAction = "index";
 
         private readonly IRouter _target;
         private readonly IRouteResolver _routeResolver;
 
-        public DefaultRoute(IRouter target, IRouteResolver routeResolver)
+        public DefaultRouter(IRouter target, IRouteResolver routeResolver)
         {
             if (target == null)
             {
@@ -49,23 +50,22 @@ namespace BrickPile
                 return;
             }
 
-            //ResolveResult result = _routeResolver.Resolve(context.HttpContext.Request.Path.Value);
+            ResolveResult result =  await _routeResolver.Resolve(context);
 
-            var requestPath = context.HttpContext.Request.Path.Value;
+            if(result == null)
+            {
+                return;
+            }
+
+            //var requestPath = context.HttpContext.Request.Path.Value;
 
             Page currentPage = null;
             dynamic currentModel = null;
-            TrieNode node;
 
             using (var session = DefaultBrickPileBootstrapper.DocumentStore.OpenAsyncSession())
             {
-                var trie = await session.LoadAsync<Trie>("brickpile/trie");
-
-                if(trie.TryGetNode(requestPath, out node))
-                {
-                    currentPage = await session.LoadAsync<Page>(node.PageId);
-                    currentModel = await session.LoadAsync<dynamic>(node.ContentId);
-                }
+                currentPage = await session.LoadAsync<Page>(result.TrieNode.PageId);
+                currentModel = await session.LoadAsync<dynamic>(result.TrieNode.ContentId);
             }
 
             if (currentPage != null)
@@ -73,11 +73,11 @@ namespace BrickPile
                 context.RouteData.Values = new RouteValueDictionary();
                 
                 context.RouteData.Values[ControllerKey] = currentModel.GetType().Name;
-                context.RouteData.Values[ActionKey] = "index";
+                context.RouteData.Values[ActionKey] = result.Action;
                 context.RouteData.Values[CurrentPageKey] = currentPage;
                 context.RouteData.Values[CurrentModelKey] = currentModel;
 
-                context.RouteData.Values[CurrentNodeKey] = node;
+                context.RouteData.Values[CurrentNodeKey] = result.TrieNode;
 
                 //context.RouteData.Values["area"] = "UI";
 

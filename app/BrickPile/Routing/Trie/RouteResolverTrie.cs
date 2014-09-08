@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Routing;
 using Raven.Client;
 using System;
+using System.Threading.Tasks;
 
 namespace BrickPile
 {
@@ -11,14 +12,17 @@ namespace BrickPile
     {
         private readonly IDocumentStore documentStore;
 
-        public RouteResolverTrie(RouteContext context, IDocumentStore documentStore)
+        public RouteResolverTrie(IDocumentStore documentStore)
 	    {
             this.documentStore = documentStore;
 	    }
 
-        public Trie LoadTrie()
+        public async Task<Trie> LoadTrie(RouteContext context)
         {
-            throw new NotImplementedException();
+            using (var session = documentStore.OpenAsyncSession())
+            {
+                return await session.LoadAsync<Trie>("brickpile/trie");
+            }
         }
     }
 }

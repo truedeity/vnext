@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace BrickPile.UI.Areas.UI.Controllers
 {
-    [Area("UI"), Authorize]
+    [Area("UI")]
     public class DashboardController : Controller
     {
         private List<Type> _availableModels = new List<Type>();

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Routing;
+using System;
+using System.Threading.Tasks;
 
 namespace BrickPile
 {
@@ -7,6 +9,6 @@ namespace BrickPile
     /// </summary>
     public interface IRouteResolverTrie
     {
-        Trie LoadTrie();
+        Task<Trie> LoadTrie(RouteContext context);
     }
 }

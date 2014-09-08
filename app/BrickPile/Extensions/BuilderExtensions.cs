@@ -78,9 +78,11 @@ namespace BrickPile.Extensions
                 // Add RavenDB FilesStore to the services container
                 services.AddInstance(FilesStore);
 
-                var builder = services.AddIdentity<ApplicationUser>();
-                services.AddScoped<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
-                builder.AddAuthentication();
+                services.AddSingleton<AuthorizeContentAttribute>();
+
+                //var builder = services.AddIdentity<ApplicationUser>();
+                //services.AddScoped<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
+                //builder.AddAuthentication();
             });
 
             // Add static files to the request pipeline
@@ -109,12 +111,10 @@ namespace BrickPile.Extensions
             {
                 // Add default route for BrickPile
                 routes.Routes.Add(
-                    new DefaultRoute(
+                    new DefaultRouter(
                         routes.DefaultHandler,
-                        new DefaultRouteResolver(                            
-                            null, // <-- inject current http context or route context
-                            new RouteResolverTrie(
-                                null, DocumentStore))));
+                        new DefaultRouteResolver(
+                            new RouteResolverTrie(DocumentStore))));
 
                 // Add area route
                 routes.MapRoute("areaRoute", "{area:exists}/{controller}/{action}",
@@ -122,6 +122,9 @@ namespace BrickPile.Extensions
 
                 routes.MapRoute("areaAssetsRoute", "{area:exists}/{controller}/{folder}",
                 new { controller = "Assets", folder = "" });
+
+                routes.MapRoute("areaAssetsCollectionsRoute", "{area:exists}/{controller}/{action}/{collection}",
+                new { controller = "Assets", collection = "" });
 
                 // Add default mvc route
                 routes.MapRoute("ActionAsMethod", "{controller}/{action}",

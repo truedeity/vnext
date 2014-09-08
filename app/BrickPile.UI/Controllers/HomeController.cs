@@ -13,16 +13,29 @@ namespace BrickPile.UI.Controllers
     {
         private readonly IDocumentStore _store;
         // GET: /<controller>/
-        public async Task<IActionResult> Index(Home currentModel)
+        public IActionResult Index(Home currentModel)
         {
             //return View();
-            return new ContentResult() { Content = "This is the Home / Index action." + currentModel.Heading };
+
+            //using(var session = _store.OpenAsyncSession()) { 
+
+            //    var set = new Set { Name = "Set 1" };
+            //    await session.StoreAsync(set);
+            //    await session.SaveChangesAsync();
+            //}
+
+            return new ContentResult() { Content = "This is the Home / Index action. " + currentModel.Heading };
 
         }
 
         public HomeController(IDocumentStore store)
         {
             _store = store;
+        }
+
+        public IActionResult Test()
+        {
+            return new ContentResult() { Content = "This is the Home/Test action... " };
         }
     }
 }

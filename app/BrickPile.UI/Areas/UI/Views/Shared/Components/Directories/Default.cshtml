@@ -1,0 +1,14 @@
+﻿@model string[]
+
+<h2>NAVIGATION</h2>
+<ul>
+    <li>
+        <a href="@Url.Action("index", "assets")">All</a>
+</li>
+    @foreach (string directory in Model)
+    {
+        <li>
+            <a href="@Url.RouteUrl("areaAssetsRoute", new { folder = @directory.TrimStart(new[] {'/'}) })">@directory.TrimStart(new[] { '/' })</a>
+        </li>
+    }
+</ul>

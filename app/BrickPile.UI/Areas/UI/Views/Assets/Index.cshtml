@@ -1,20 +1,13 @@
-﻿@model string[]
-
+﻿@model IList<Raven.Abstractions.FileSystem.FileHeader>
 
 <div id="pages">
-    <ul>
-        @foreach (string directory in Model)
-        {
-            <li>
-                <a href="@Url.RouteUrl("areaAssetsRoute", new { folder = @directory.TrimStart(new[] {'/'}) })">@directory</a>
-            </li>
-        }
-    </ul>
+    @await Component.InvokeAsync("Directories")
+    @await Component.InvokeAsync("Collections")
 </div>
 
 <div style="position:absolute;left:14em;">
 
-    <!-- Load Feather code -->
+    @*<!-- Load Feather code -->
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
 
     <!-- Instantiate Feather -->
@@ -49,16 +42,16 @@
     <img id='image1' src='http://images.aviary.com/imagesv5/feather_default.jpg' />
 
     <!-- Add an edit button, passing the HTML id of the image and the public URL of the image -->
-    <p><input type='image' src='http://images.aviary.com/images/edit-photo.png' value='Edit photo' onclick="return launchEditor('image1', 'http://images.aviary.com/imagesv5/feather_default.jpg');" /></p>
+    <p><input type='image' src='http://images.aviary.com/images/edit-photo.png' value='Edit photo' onclick="return launchEditor('image1', 'http://images.aviary.com/imagesv5/feather_default.jpg');" /></p>*@
 
-    @*<ul>
-        @foreach (var file in ViewBag.Files)
+    <ul style="list-style:none;">
+        @foreach (var file in Model)
         {
-            <li>
-                <img src="http://localhost:8080/fs/brickpile/files/@(file.Name)" alt="" width="150" height="150" title="" />
+            <li style="display:inline-block;padding:4px;border:solid 1px #ccc;margin-right:1em;margin-bottom:1em;">
+                <img src="http://localhost:8080/fs/brickpile/files@(file.Name)" alt="" width="150" height="150" title="@file.Name" style="display:block;" />
             </li>
         }
-    </ul>*@
+    </ul>
 </div>
 
 @*<ul>

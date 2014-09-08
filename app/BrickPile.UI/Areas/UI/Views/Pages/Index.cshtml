@@ -3,7 +3,7 @@
         @foreach (BrickPile.Page page in ViewBag.Pages)
         {
             <li>
-                <a href="@page.Id">@page.Id</a>                
+                <a href="@Url.Action("index","pages")">@page.Id</a>                
             </li>
         }
     </ul>
