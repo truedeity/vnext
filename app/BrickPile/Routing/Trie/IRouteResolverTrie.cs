@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace BrickPile
+namespace BrickPile.Routing.Trie
 {
     /// <summary>
     /// Summary description for IRouteResolverTrie

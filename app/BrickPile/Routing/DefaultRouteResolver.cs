@@ -1,19 +1,23 @@
-﻿using Microsoft.AspNet.Routing;
+﻿using BrickPile.Routing.Trie;
+using Microsoft.AspNet.Routing;
+using Raven.Client;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BrickPile
+namespace BrickPile.Routing
 {
     /// <summary>
     /// Summary description for DefaultRouteResolver
     /// </summary>
     public class DefaultRouteResolver : IRouteResolver
     {
+        private readonly IDocumentStore documentStore;
         private readonly IRouteResolverTrie routeResolverTrie;
 
-        public DefaultRouteResolver(IRouteResolverTrie routeResolverTrie)
+        public DefaultRouteResolver(IDocumentStore documentStore, IRouteResolverTrie routeResolverTrie)
 	    {
+            this.documentStore = documentStore;
             this.routeResolverTrie = routeResolverTrie;
 	    }
 
@@ -52,7 +56,21 @@ namespace BrickPile
                 }
             }
 
-            return currentNode == null ? null : new ResolveResult(currentNode, "temp", action);
+            if(currentNode == null)
+            {
+                return null;
+            }
+
+            Page currentPage = null;
+            dynamic currentModel = null;
+
+            using (var session = documentStore.OpenAsyncSession())
+            {
+                currentPage = await session.LoadAsync<Page>(currentNode.PageId);
+                currentModel = await session.LoadAsync<dynamic>(currentNode.ContentId);
+            }
+
+            return new ResolveResult(currentNode, currentPage, currentModel, currentPage.GetType().Name.Replace("Controller",""), action); // TODO: Resolve controller name using IControllerMapper
         }
 
         private string NormalizeRequestPath(string path)

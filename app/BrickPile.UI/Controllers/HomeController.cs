@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNet.Mvc;
-using Raven.Abstractions.FileSystem;
+﻿using Microsoft.AspNet.FileSystems;
+using Microsoft.AspNet.Mvc;
 using Raven.Client;
 using Raven.Client.FileSystem;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,28 +10,48 @@ using System.Threading.Tasks;
 
 namespace BrickPile.UI.Controllers
 {
-    public class HomeController
+    public class HomeController : Controller
     {
         private readonly IDocumentStore _store;
+        private readonly IFilesStore _filesStore;
+        private readonly IFileSystem _fileSystem;
         // GET: /<controller>/
-        public IActionResult Index(Home currentModel)
+        public async Task<IActionResult> Index(Home currentModel)
         {
             //return View();
 
-            //using(var session = _store.OpenAsyncSession()) { 
-
-            //    var set = new Set { Name = "Set 1" };
-            //    await session.StoreAsync(set);
+            //using (var session = _store.OpenAsyncSession())
+            //{
+            //    var collection = new Collection { Name = "Collection 1" };
+            //    await session.StoreAsync(collection);
             //    await session.SaveChangesAsync();
             //}
 
-            return new ContentResult() { Content = "This is the Home / Index action. " + currentModel.Heading };
+            //using (var session = _filesStore.OpenAsyncSession())
+            //{
+            //    var bla = await session.LoadFileAsync("images/hubot.jpg");
+
+            //}
+
+            //var provider = new BrickPileFileSystem(_filesStore);
+            
+            IFileInfo info;
+            IEnumerable<IFileInfo> infos;
+            _fileSystem.TryGetFileInfo("/images/hubot.jpg", out info);
+            _fileSystem.TryGetDirectoryContents("/images", out infos);
+
+            return new ContentResult() {
+                Content = "This is the Home / Index action mother fucker!!! " + currentModel.Heading +
+                string.Join(", ", infos.Select(x => x.PhysicalPath))
+            };
 
         }
 
-        public HomeController(IDocumentStore store)
+        public HomeController(IDocumentStore store, IFilesStore filesStore, IFileSystem fileSystem)
         {
             _store = store;
+            _filesStore = filesStore;
+            _fileSystem = fileSystem;
         }
 
         public IActionResult Test()

@@ -1,6 +1,7 @@
 ﻿using System;
 using Raven.Client;
 using Raven.Client.Document;
+using BrickPile.Routing.Trie;
 
 namespace BrickPile
 {

@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace BrickPile.UI.Controllers
 {
-    [Area("UI")]
+    [Area("ui")]
+    [Route("[area]/pages")]
     public class PagesController : Controller
     {
-
         private List<Type> _availableModels = new List<Type>();
         private readonly IDocumentStore _documentStore;
 
@@ -21,33 +21,39 @@ namespace BrickPile.UI.Controllers
         }
 
         // GET: /<controller>/
-        public async Task<IActionResult> Index()
+        [HttpGet("{page?}")]
+        public async Task<IActionResult> Index(string page = "1")
         {
+            dynamic p;
             using(var session = _documentStore.OpenAsyncSession())
             {
                 ViewBag.Pages = await session.Query<Page>().ToListAsync();
+                p = await session.LoadAsync<dynamic>("pages/" + page + "/content");
             }
-            return View();
+
+            return View(p);
         }
 
-        public async Task<IActionResult> Save(TrieNode currentNode)
+        public async Task<IActionResult> Save(string page)
         {
             dynamic model;
             using (var session = DefaultBrickPileBootstrapper.DocumentStore.OpenAsyncSession())
             {
-                model = await session.LoadAsync<dynamic>(currentNode.ContentId);
+                model = await session.LoadAsync<dynamic>("pages/" + page + "/content");
 
                 bool result = await TryUpdateModelAsync(model);
 
                 if (!result)
                 {
-                    return View("~/Areas/UI/Views/Home/Index.cshtml", model);
+                    return View("Index", model);
                 }
 
+                await session.StoreAsync(model);
                 await session.SaveChangesAsync();
 
             }
-            return Json(model);
+            return View("Index", model);
+            //return Json(model);
         }
     }
 }

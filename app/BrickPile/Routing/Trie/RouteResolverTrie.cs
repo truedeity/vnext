@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNet.Routing;
 using Raven.Client;
-using System;
 using System.Threading.Tasks;
 
-namespace BrickPile
+namespace BrickPile.Routing.Trie
 {
     /// <summary>
     /// Summary description for RouteResolverTrie
@@ -13,15 +12,22 @@ namespace BrickPile
         private readonly IDocumentStore documentStore;
 
         public RouteResolverTrie(IDocumentStore documentStore)
-	    {
+        {
             this.documentStore = documentStore;
 	    }
 
         public async Task<Trie> LoadTrie(RouteContext context)
         {
+            if(context.HttpContext.Items.ContainsKey("brickpile:trie"))
+            {
+                return context.HttpContext.Items["brickpile:trie"] as Trie;
+            }
+
             using (var session = documentStore.OpenAsyncSession())
             {
-                return await session.LoadAsync<Trie>("brickpile/trie");
+                var trie = await session.LoadAsync<Trie>("brickpile/trie");
+                context.HttpContext.Items.Add("brickpile:trie", trie);
+                return trie;
             }
         }
     }

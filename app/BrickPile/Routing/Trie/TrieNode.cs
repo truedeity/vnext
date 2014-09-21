@@ -1,6 +1,6 @@
 ﻿using Raven.Imports.Newtonsoft.Json;
 
-namespace BrickPile
+namespace BrickPile.Routing.Trie
 {
     /// <summary>
     /// Summary description for TrieNode

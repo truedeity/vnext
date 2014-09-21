@@ -1,3 +1,14 @@
-﻿@model BrickPile.UI.Home.Image
+﻿@model BrickPile.Image
 
-@Html.EditorFor(x => x.AlternativText)
+<fieldset>
+    <legend>Bild</legend>
+    @Html.LabelFor(x => x.Id)
+    <br />
+    @Html.EditorFor(x => x.Id)
+    <br />
+    @Html.LabelFor(x => x.Name)
+    <br />
+    @Html.EditorFor(x => x.Name)
+    <br />
+    <button>Mobil</button> <button>Mobil L</button> <button>Surfplatta</button> <button>Surfplatta L</button> <button>Dator</button>
+</fieldset>

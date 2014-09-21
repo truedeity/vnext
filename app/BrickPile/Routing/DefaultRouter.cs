@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BrickPile
+namespace BrickPile.Routing
 {
     /// <summary>
     /// Summary description for DefaultRoute
@@ -57,32 +57,19 @@ namespace BrickPile
                 return;
             }
 
-            //var requestPath = context.HttpContext.Request.Path.Value;
-
-            Page currentPage = null;
-            dynamic currentModel = null;
-
-            using (var session = DefaultBrickPileBootstrapper.DocumentStore.OpenAsyncSession())
-            {
-                currentPage = await session.LoadAsync<Page>(result.TrieNode.PageId);
-                currentModel = await session.LoadAsync<dynamic>(result.TrieNode.ContentId);
-            }
-
-            if (currentPage != null)
-            {
-                context.RouteData.Values = new RouteValueDictionary();
+            context.RouteData.Values = new RouteValueDictionary();
                 
-                context.RouteData.Values[ControllerKey] = currentModel.GetType().Name;
-                context.RouteData.Values[ActionKey] = result.Action;
-                context.RouteData.Values[CurrentPageKey] = currentPage;
-                context.RouteData.Values[CurrentModelKey] = currentModel;
+            context.RouteData.Values[ControllerKey] = "Home";
+            context.RouteData.Values[ActionKey] = result.Action;
+            context.RouteData.Values[CurrentPageKey] = result.CurrentPage;
+            context.RouteData.Values[CurrentModelKey] = result.CurrentModel;
 
-                context.RouteData.Values[CurrentNodeKey] = result.TrieNode;
+            context.RouteData.Values[CurrentNodeKey] = result.TrieNode;
 
-                //context.RouteData.Values["area"] = "UI";
+            //context.RouteData.Values["area"] = "UI";
 
-                await _target.RouteAsync(context);
-            }
+            await _target.RouteAsync(context);
+
         }
     }
 }

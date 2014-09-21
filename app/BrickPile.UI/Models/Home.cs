@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace BrickPile.UI
 {
@@ -8,10 +9,11 @@ namespace BrickPile.UI
     [Model]
     public class Home
     {
-        [Required(ErrorMessage = "Yeah, and fuck you tooooo...")]
+        [Required(ErrorMessage = "Yeah")]
         public string Heading { get; set; }
 
-        [Display(Name = "Hero image ..."), Required]
+        //[Display(Name = "Hero image ...")]
+        [Format(Formats = new[] { MediaFormat.Desktop, MediaFormat.Mobile })]
         public Image Hero { get;set; }
 
         public Home()
@@ -20,11 +22,18 @@ namespace BrickPile.UI
 		    // TODO: Add constructor logic here
 		    //
 	    }
+    }
+    public class Format : Attribute
+    {
+        public MediaFormat[] Formats { get;set; }
+    }
 
-        public class Image
-        {
-            [Display(Name ="Alt-text")]
-            public string AlternativText { get; set; }
-        }
+    public enum MediaFormat
+    {
+        Mobile = 0,
+        Desktop = 1,
+        Tablet = 2,
+        TabletL = 3,
+        MobileL = 4
     }
 }

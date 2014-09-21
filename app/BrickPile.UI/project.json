@@ -1,4 +1,4 @@
-﻿{
+{
     "dependencies": {
         "BrickPile": "0.0.1-alpha",
         "Kestrel": "1.0.0-alpha3",
@@ -8,7 +8,7 @@
         "Microsoft.AspNet.Mvc": "6.0.0-alpha3",
         "Microsoft.AspNet.Server.WebListener": "1.0.0-alpha3",
         "Microsoft.AspNet.StaticFiles": "1.0.0-alpha3",
-        "RavenDB.Client": "3.0.3480-Unstable"
+        "RavenDB.Client": "3.0.3486-Unstable"
     },
     "commands": {
         "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5001",

@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNet.Builder;
 using BrickPile.Extensions;
-using System;
-using Raven.Client;
-using Microsoft.AspNet.Identity;
 
 namespace BrickPile.UI
 {

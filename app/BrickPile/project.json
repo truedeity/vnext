@@ -11,7 +11,7 @@
         "Microsoft.AspNet.StaticFiles": "1.0.0-alpha3",
         "Microsoft.AspNet.Identity": "3.0.0-alpha3",
         "Microsoft.AspNet.Identity.Authentication": "3.0.0-alpha3",
-        "RavenDB.Client": "3.0.3480-Unstable"    
+        "RavenDB.Client": "3.0.3486-Unstable"    
     },
     "configurations" : {
         "net45" : { 

@@ -30,8 +30,8 @@
        featherEditor.launch({
            image: id,
            url: src,
-           forceCropPreset: ['Profile Picture','300x150'],
-           forceCropMessage: 'Crop your profile picture:'
+           //forceCropPreset: ['Profile Picture','300x150'],
+           //forceCropMessage: 'Crop your profile picture:'
        });
       return false;
    }
@@ -48,7 +48,34 @@
         @foreach (var file in Model)
         {
             <li style="display:inline-block;padding:4px;border:solid 1px #ccc;margin-right:1em;margin-bottom:1em;">
-                <img src="http://localhost:8080/fs/brickpile/files@(file.Name)" alt="" width="150" height="150" title="@file.Name" style="display:block;" />
+
+                <figure>
+                    <picture>
+                        <source media="(min-width: 45em)" srcset="http://localhost:8080/fs/brickpile/files@(file.Name)">
+                        <source media="(min-width: 60em)" srcset="http://localhost:8080/fs/brickpile/files@(@file.Metadata["Mobile"])">
+                        @foreach (var metadata in file.Metadata)
+                        {
+                            if (metadata.Key == "Formats")
+                            {
+                                foreach (var format in metadata.Value.Values())
+                                {
+                                    @format.Values().First()
+                                    <br />
+                                }
+                            }
+                        }
+                        <img src="http://placehold.it/150x150" alt="The president giving an award.">
+                    </picture>
+                    <figcaption>Barney Frank, 2011</figcaption>
+                </figure>
+
+
+                @*<picture>
+                    <source src="http://placehold.it/100x100" media="(max-width: 768px)">
+                    <source srcset="">
+                    <img srcset="http://localhost:8080/fs/brickpile/files@(file.Name)" alt="" width="150" height="150" title="@file.Name">
+                </picture>*@
+
             </li>
         }
     </ul>

@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNet.Builder;
+﻿using BrickPile.FileSystem;
+using BrickPile.Routing;
+using BrickPile.Routing.Trie;
+using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.FileSystems;
+using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Routing;
-using Microsoft.AspNet.Security;
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.AspNet.Security.Cookies;
 using Microsoft.Framework.DependencyInjection;
 using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.FileSystem;
 using System;
-using Raven.Abstractions.FileSystem.Notifications;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Security.Cookies;
 
 namespace BrickPile.Extensions
 {
@@ -21,15 +21,13 @@ namespace BrickPile.Extensions
     /// </summary>
     public static class BuilderExtensions
     {
-        //public static Func<IDocumentSession, UserManager<IdentityUser>> UserManagerFactory { get; private set; }
-
         private static readonly Lazy<IDocumentStore> DocStore = new Lazy<IDocumentStore>(() =>
         {
             var store = new DocumentStore
             {
                 Url = "http://localhost:8080",
                 DefaultDatabase = "BrickPile"
-            }; 
+            };            
             store.Initialize();
             return store;
         });
@@ -39,8 +37,8 @@ namespace BrickPile.Extensions
             var store = new FilesStore
             {
                 Url = "http://localhost:8080",                
-                DefaultFileSystem = "BrickPile"                
-            };            
+                DefaultFileSystem = "BrickPile"
+            };
             store.Initialize();
             return store;
         });
@@ -73,16 +71,35 @@ namespace BrickPile.Extensions
             {
                 // Add MVC services to the services container
                 services.AddMvc();
+
                 // Add RavenDB DocumentStore to the services container
                 services.AddInstance(DocumentStore);
+
                 // Add RavenDB FilesStore to the services container
                 services.AddInstance(FilesStore);
 
-                services.AddSingleton<AuthorizeContentAttribute>();
+                //services.SetupOptions<MvcOptions>(options =>
+                //{
+                //    options.ModelBinders.Add(new ModelBinding.TestModelBinder());
+                //    options.Filters.Add(typeof(AuthorizeContentAttribute), order: 17);
+                //});
 
-                //var builder = services.AddIdentity<ApplicationUser>();
-                //services.AddScoped<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
-                //builder.AddAuthentication();
+                //services.AddSingleton<AuthorizeContentAttribute>();
+
+                services.AddTransient<IFileSystem, RavenDBFileSystem>();
+
+                var builder = services.AddIdentity<ApplicationUser>();
+                services.AddSingleton<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
+                services.AddScoped<UserManager<ApplicationUser>, UserManager<ApplicationUser>>();
+                services.AddScoped<IRoleStore<IdentityRole>, RoleStore<IdentityRole>>();
+                builder.AddAuthentication()
+                .SetupOptions(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonLetterOrDigit = false;
+                });
             });
 
             // Add static files to the request pipeline
@@ -95,16 +112,7 @@ namespace BrickPile.Extensions
                 AuthenticationType = ClaimsIdentityOptions.DefaultAuthenticationType,
                 LoginPath = new PathString("/ui/auth/login")
             });
-
-            
-
-            // configure the user manager
-            //UserManagerFactory = (session) =>
-            //{
-            //    var usermanager = new UserManager<IdentityUser>()
-            //    return usermanager;
-            //};
-
+           
             // Add MVC to the request pipeline
 
             app.UseMvc(routes =>
@@ -113,7 +121,7 @@ namespace BrickPile.Extensions
                 routes.Routes.Add(
                     new DefaultRouter(
                         routes.DefaultHandler,
-                        new DefaultRouteResolver(
+                        new DefaultRouteResolver(DocumentStore,
                             new RouteResolverTrie(DocumentStore))));
 
                 // Add area route
@@ -122,6 +130,9 @@ namespace BrickPile.Extensions
 
                 routes.MapRoute("areaAssetsRoute", "{area:exists}/{controller}/{folder}",
                 new { controller = "Assets", folder = "" });
+
+                //routes.MapRoute("areaPagesRoute", "{area:exists}/{controller}/{page}",
+                //new { controller = "Pages", action = "Index", page = "" });
 
                 routes.MapRoute("areaAssetsCollectionsRoute", "{area:exists}/{controller}/{action}/{collection}",
                 new { controller = "Assets", collection = "" });
@@ -135,4 +146,16 @@ namespace BrickPile.Extensions
         }
 
     }
+    //public static class IdentityRavenDBExtensions
+    //{
+    //    public static IdentityBuilder<TUser> AddIdentityRavenDB<TUser>(this ServiceCollection services)
+    //        where TUser : IdentityUser, new()
+    //        where TRole : IdentityRole, new()
+    //    {
+    //        var builder = services.AddIdentity<TUser>();
+    //        services.AddSingleton<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
+    //        services.AddScoped<UserManager<TUser>, UserManager<TUser>>();
+    //        return builder;
+    //    }
+    //}
 }

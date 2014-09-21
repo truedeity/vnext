@@ -1,10 +1,21 @@
-﻿<div id="pages">
+﻿@model dynamic
+<div id="pages">
     <ul>
         @foreach (BrickPile.Page page in ViewBag.Pages)
         {
             <li>
-                <a href="@Url.Action("index","pages")">@page.Id</a>                
+                @*<a href="@Url.RouteUrl("areaPagesRoute", new { page = @page.Id.Replace("pages/","")})">@page.Id</a>*@
+                <a href="@Url.Action("Index", "Pages")">@page.Id</a>
             </li>
         }
     </ul>
+</div>
+
+<div style="position:absolute;left:14em;">
+    @using (Html.BeginForm("save", "pages", new { page = "1" },FormMethod.Post))
+    {
+        @Html.EditorForModel()
+        <input type="submit" value="Save" />
+    }
+    
 </div>

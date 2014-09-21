@@ -32,7 +32,6 @@
     <Compile Include="DefaultBrickPileBootstrapper.cs" />
     <Compile Include="Extensions\BuilderExtensions.cs" />
     <Compile Include="ModelAttribute.cs" />
-    <Compile Include="ModelBinding\TestModelBinder.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="IBrickPileBootstrapper.cs" />
     <Compile Include="Routing\DefaultRouter.cs" />

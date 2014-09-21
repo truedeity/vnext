@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BrickPile
+namespace BrickPile.Routing.Trie
 {
     public class Trie : IDictionary<string, TrieNode>
     {
