@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/marcuslindblom/vnext.png?label=ready&title=Ready)](https://waffle.io/marcuslindblom/vnext)
 vnext
 =====
 
