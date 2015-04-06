@@ -4,19 +4,21 @@
     "version": "0.0.1-alpha",
     "dependencies": {        
         "Kestrel": "1.0.0-alpha3",
-        "Microsoft.AspNet.Diagnostics": "1.0.0-alpha3",
-        "Microsoft.AspNet.Hosting": "1.0.0-alpha3",
-        "Microsoft.AspNet.Mvc": "6.0.0-alpha3",
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-alpha3",
-        "Microsoft.AspNet.StaticFiles": "1.0.0-alpha3",
-        "Microsoft.AspNet.Identity": "3.0.0-alpha3",
-        "Microsoft.AspNet.Identity.Authentication": "3.0.0-alpha3",
-        "RavenDB.Client": "3.0.3486-Unstable"    
+        "Microsoft.AspNet.Diagnostics": "1.0.0-beta3",
+        "Microsoft.AspNet.Hosting": "1.0.0-beta3",
+        "Microsoft.AspNet.Mvc": "6.0.0-beta3",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta3",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-beta3",
+        "Microsoft.AspNet.Identity": "3.0.0-beta3",
+        "Microsoft.AspNet.Identity.Authentication": "3.0.0-beta3"
     },
-    "configurations" : {
-        "net45" : { 
-        },
-        "k10" : {
-        }
-    }
+	"frameworks": {
+		"aspnet50": {
+            "dependencies": {
+                "RavenDB.Client": "3.0.3599",
+                "RavenDB.Database": "3.0.3599"
+            }
+		}
+		//"aspnetcore50": { }
+	},
 }
