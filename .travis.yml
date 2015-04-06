@@ -1,5 +1,7 @@
 language: csharp
 solution: app/BrickPile.sln
 sudo: true
+before_script:
+ - chmod +x build.sh
 script:
 - ./build.sh verify
