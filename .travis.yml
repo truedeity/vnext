@@ -1,5 +1,5 @@
 language: csharp
 solution: app/BrickPile.sln
-sudo: false
+sudo: true
 script:
 - ./build.sh verify
